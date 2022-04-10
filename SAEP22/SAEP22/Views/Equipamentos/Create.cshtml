@@ -1,12 +1,13 @@
 ﻿@model SAEP22.Models.Equipamentos
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Cadastrar";
 }
 
-<h1>Create</h1>
-
-<h4>Equipamentos</h4>
+<div class="mt-5 mb-5 d-flex justify-content-between align-items-center flex-wrap">
+    <h4>Novo equipamento</h4>
+    <a asp-action="Index" class="btn btn-link-dark">Voltar</a>
+</div>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -38,15 +39,12 @@
                 <span asp-validation-for="Data" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Criar" class="btn btn-link" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

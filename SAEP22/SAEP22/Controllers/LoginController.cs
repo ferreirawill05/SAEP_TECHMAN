@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,9 +20,37 @@ namespace SAEP22.Controllers
             _context = context;
         }
 
+        [TempData]
+        public string Mensagem { get; set; }
+
+
+        public IActionResult Login(IFormCollection form)
+        {
+            var usuario = _context.Usuarios
+                .Include(u => u.Perfis)
+                .FirstOrDefault(u => u.Senha == form["password"].ToString());
+
+            if (usuario != null)
+            {
+                HttpContext.Session.SetString("_Perfil", usuario.IdPerfil.ToString());
+                return LocalRedirect("~/equipamentos");
+            }
+
+            Mensagem = "Dados incorretos, tente novamente...";
+            return LocalRedirect("~/");
+        }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Remove("_Perfil");
+            return LocalRedirect("~/");
+        }
+
+
         // GET: Login
         public async Task<IActionResult> Index()
         {
+
             var saepContext = _context.Usuarios.Include(u => u.Perfis);
             return View(await saepContext.ToListAsync());
         }
@@ -155,6 +184,7 @@ namespace SAEP22.Controllers
         private bool UsuariosExists(int id)
         {
             return _context.Usuarios.Any(e => e.Id == id);
-        }
+        }       
+        
     }
 }

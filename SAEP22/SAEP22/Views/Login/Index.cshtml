@@ -4,38 +4,59 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Senha)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Perfis)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Senha)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Perfis.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="login__form-container">
+    <div>
+        <img src="~/img/logo.png" alt="Logo techman" />
+    </div>
+    <form class="login_container" method="POST" action='@Url.Action("Login")'>
+        <input type="password" maxlength="6" name="password" id="password" onkeydown="return false">
+        <i class="erro">@TempData.Peek("Mensagem")</i>
+
+        <div onclick="update()" class="button_container">
+
+            <div class="btn-flex-gap">
+                <button type="button" onclick="One()">1</button>
+                <button type="button" onclick="Two()">2</button>
+                <button type="button" onclick="Three()">3</button>
+            </div>
+            <div class="btn-flex-gap">
+                <button type="button" onclick="Four()">4</button>
+                <button type="button" onclick="Five()">5</button>
+                <button type="button" onclick="Six()">6</button>
+            </div>
+            <div class="btn-flex-gap">
+                <button type="button" onclick="Seven()">7</button>
+                <button type="button" onclick="Eight()">8</button>
+                <button type="button" onclick="Nine()">9</button>
+            </div>
+            <div class="btn-flex-gap">
+                <button type="button" onclick="Clear()">C</button>
+                <button type="button" onclick="Zero()">0</button>
+                <button type="submit">↵</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    let passcode = '';
+    function One() { passcode = passcode + 1; }
+    function Two() { passcode = passcode + 2; }
+    function Three() { passcode = passcode + 3; }
+    function Four() { passcode = passcode + 4; }
+    function Five() { passcode = passcode + 5; }
+    function Six() { passcode = passcode + 6; }
+    function Seven() { passcode = passcode + 7; }
+    function Eight() { passcode = passcode + 8; }
+    function Nine() { passcode = passcode + 9; }
+    function Zero() { passcode = passcode + 0; }
+    function update() {
+        if (passcode.length < 7) {
+            var pass = document.getElementById('password').value = passcode;
+        }
+    }
+    function Clear() {
+        passcode = '';
+    }
+</script>

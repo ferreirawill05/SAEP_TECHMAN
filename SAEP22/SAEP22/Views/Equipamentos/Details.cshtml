@@ -1,48 +1,68 @@
 ﻿@model SAEP22.Models.Equipamentos
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes";
 }
 
-<h1>Details</h1>
 
 <div>
-    <h4>Equipamentos</h4>
+    <div class="mt-5 mb-5 d-flex justify-content-between align-items-center flex-wrap">
+        <h4>@Html.DisplayFor(model => model.Equipamento)</h4>
+        <a asp-action="Index" class="btn btn-link-dark">Voltar</a>
+    </div>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Equipamento)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Equipamento)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Imagem)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Imagem)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Descricao)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Descricao)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Ativo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Ativo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Data)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Data)
-        </dd>
-    </dl>
+    <div class="d-flex justify-content-center align-items-center">
+        <img src="~/img/equipaments/@Html.DisplayFor(model => model.Imagem)" alt="Imagem do equipamento" />
+    </div>
+    <hr />
+    <div class="d-flex justify-content-center align-items-center text-center">
+        <p>@Html.DisplayFor(model => model.Descricao)</p>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+
+<div class="mt-2 mb-2">
+    <div class="col-md-4">
+        <h5>Comentar</h5>
+        <i class="erro">@TempData.Peek("Mensagem")</i>
+
+        <form name="comentarioForm" method="POST" action='@Url.Action("Comentar")' onsubmit="return validateForm()">
+            <div class="form-group">
+                <input class="form-control" name="Comentario" id="comentarios" />
+            </div>
+
+            <input class="form-control" name="IdPerfil" hidden value="@ViewBag.Perfil" />
+            <input class="form-control" name="IdEquipamento" hidden value="@Model.Id" />
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-link">Comentar</button>
+            </div>
+        </form>
+    </div>
 </div>
+
+@if (ViewBag.Comentarios != null)
+{
+    <div class="mt-5">
+        <div class="col-md-4">
+            <h5>Comentários</h5>
+
+            @foreach (var item in ViewBag.Comentarios)
+            {
+                <div class="comentarios-container">
+                    <p class="comentario-perfil">@item.Perfis.Perfil</p>
+                    <p class="comentario">@item.Comentario - @item.Data</p>
+                </div>
+            }
+        </div>
+    </div>
+}
+
+<script>
+    function validateForm() {
+        let x = document.forms["comentarioForm"]["Comentario"].value;
+        if (x.trim() === "") {
+            alert("É necessário preencher o campo de comentário");
+            return false;
+        }
+    }
+</script>

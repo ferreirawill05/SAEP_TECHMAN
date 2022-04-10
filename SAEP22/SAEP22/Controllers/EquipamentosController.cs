@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,9 +20,13 @@ namespace SAEP22.Controllers
             _context = context;
         }
 
+        [TempData]
+        public string Mensagem { get; set; }
+
         // GET: Equipamentos
         public async Task<IActionResult> Index()
         {
+            ViewBag.Perfil = HttpContext.Session.GetString("_Perfil");
             return View(await _context.Equipamentos.ToListAsync());
         }
 
@@ -39,6 +44,9 @@ namespace SAEP22.Controllers
             {
                 return NotFound();
             }
+
+            ListarComentarios(equipamentos.Id);
+            ViewBag.Perfil = HttpContext.Session.GetString("_Perfil");
 
             return View(equipamentos);
         }
@@ -149,5 +157,35 @@ namespace SAEP22.Controllers
         {
             return _context.Equipamentos.Any(e => e.Id == id);
         }
+
+        public void ListarComentarios(int id)
+        {
+            var comentarios = _context.Comentarios
+                .Include(c => c.Perfis)
+                .ToList()
+                .Where(e => e.IdEquipamento == id)
+                .OrderByDescending(m => m.Data);
+
+            if (comentarios != null)
+            {
+                ViewBag.Comentarios = comentarios;
+            }
+        }
+
+        public IActionResult Comentar(IFormCollection form)
+        {
+            Comentarios c = new Comentarios();
+            c.Comentario = form["Comentario".ToString()];
+            c.IdPerfil = int.Parse(form["IdPerfil"]);
+            c.IdEquipamento = int.Parse(form["IdEquipamento"]);
+            c.Data = DateTime.Now;
+
+            _context.Comentarios.Add(c);
+            _context.SaveChanges();
+
+            Mensagem = "Sucesso! Comentário cadastrado para o equipamento";
+            return LocalRedirect("~/equipamentos/details/" + c.IdEquipamento);
+        }
+
     }
 }
