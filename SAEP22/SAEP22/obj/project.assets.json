@@ -7149,19 +7149,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\roque\\.nuget\\packages\\": {}
+    "C:\\Users\\carlos\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\roque\\Desktop\\SAEP_TECHMAN\\SAEP22\\SAEP22\\SAEP22.csproj",
+      "projectUniqueName": "C:\\Users\\carlos\\Desktop\\SAEP_TECHMAN\\SAEP22\\SAEP22\\SAEP22.csproj",
       "projectName": "SAEP22",
-      "projectPath": "C:\\Users\\roque\\Desktop\\SAEP_TECHMAN\\SAEP22\\SAEP22\\SAEP22.csproj",
-      "packagesPath": "C:\\Users\\roque\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\roque\\Desktop\\SAEP_TECHMAN\\SAEP22\\SAEP22\\obj\\",
+      "projectPath": "C:\\Users\\carlos\\Desktop\\SAEP_TECHMAN\\SAEP22\\SAEP22\\SAEP22.csproj",
+      "packagesPath": "C:\\Users\\carlos\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\carlos\\Desktop\\SAEP_TECHMAN\\SAEP22\\SAEP22\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\roque\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\carlos\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

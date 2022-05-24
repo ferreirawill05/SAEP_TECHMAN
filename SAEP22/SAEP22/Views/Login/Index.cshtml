@@ -6,11 +6,15 @@
 
 
 <div class="login__form-container">
+
     <div>
         <img src="~/img/logo.png" alt="Logo techman" />
     </div>
+
     <form class="login_container" method="POST" action='@Url.Action("Login")'>
-        <input type="password" maxlength="6" name="password" id="password" onkeydown="return false">
+
+        <input type="password" maxlength="6" name="password" id="password" onkeydown="return false" required>
+
         <i class="erro">@TempData.Peek("Mensagem")</i>
 
         <div onclick="update()" class="button_container">
@@ -33,7 +37,7 @@
             <div class="btn-flex-gap">
                 <button type="button" onclick="Clear()">C</button>
                 <button type="button" onclick="Zero()">0</button>
-                <button type="submit">↵</button>
+                <button id="submit" type="submit">↵</button>
             </div>
         </div>
     </form>
