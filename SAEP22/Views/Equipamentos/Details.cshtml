@@ -4,6 +4,7 @@
     ViewData["Title"] = "Detalhes";
 }
 
+<h5>Comentários</h5>
 
 <div>
     <div class="mt-5 mb-5 d-flex justify-content-between align-items-center flex-wrap">
@@ -43,14 +44,18 @@
 @if (ViewBag.Comentarios != null)
 {
     <div class="mt-5">
-        <div class="col-md-4">
-            <h5>Comentários</h5>
+        <div class="col-md-4" style="border: 1px solid #c1c1c1">
+            <h5>Comentários dos usuários</h5>
 
             @foreach (var item in ViewBag.Comentarios)
             {
                 <div class="comentarios-container">
-                    <p class="comentario-perfil">@item.Perfis.Perfil</p>
+                    <p class="comentario-perfil">Usuário @item.Perfis.Perfil</p>
                     <p class="comentario">@item.Comentario - @item.Data</p>
+                    @if (ViewBag.Perfil =="2")
+                    {                          
+                        <a style="width:192px" class="btn btn-link-dark" asp-action="ExcluirComentario" asp-route-id="@item.Id">Excluir comentário</a>                          
+                    }
                 </div>
             }
         </div>

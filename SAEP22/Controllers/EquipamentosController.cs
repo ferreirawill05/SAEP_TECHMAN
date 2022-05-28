@@ -184,7 +184,21 @@ namespace SAEP22.Controllers
             _context.SaveChanges();
 
             Mensagem = "Sucesso! Comentário cadastrado para o equipamento";
-            return LocalRedirect("~/equipamentos/details/" + c.IdEquipamento);
+            //return LocalRedirect("~/equipamentos/details/" + c.IdEquipamento);
+            return LocalRedirect("~/equipamentos");
+        }
+
+        public IActionResult ExcluirComentario(int id)
+        {
+            var comentario = _context.Comentarios.FirstOrDefault(c => c.Id == id);
+
+            if (comentario != null)
+            {
+                _context.Comentarios.Remove(comentario);
+                _context.SaveChanges();
+            }
+
+            return LocalRedirect("~/equipamentos/details/" + comentario.IdEquipamento);
         }
 
     }
