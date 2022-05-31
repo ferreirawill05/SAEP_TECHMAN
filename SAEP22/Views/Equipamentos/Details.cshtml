@@ -26,16 +26,19 @@
         <h5>Comentar</h5>
         <i class="erro">@TempData.Peek("Mensagem")</i>
 
-        <form name="comentarioForm" method="POST" action='@Url.Action("Comentar")' onsubmit="return validateForm()">
-            <div class="form-group">
-                <input class="form-control" name="Comentario" id="comentarios" />
-            </div>
+        <form name="comentarioForm" method="POST" action='@Url.Action("Comentar")'>
+            
+            <div onclick="validateForm()">
+                <div class="form-group">
+                    <input class="form-control" name="Comentario" id="comentarios" />
+                </div>
 
-            <input class="form-control" name="IdPerfil" hidden value="@ViewBag.Perfil" />
-            <input class="form-control" name="IdEquipamento" hidden value="@Model.Id" />
+                <input class="form-control" name="IdPerfil" hidden value="@ViewBag.Perfil" />
+                <input class="form-control" name="IdEquipamento" hidden value="@Model.Id" />
 
-            <div class="form-group">
-                <button type="submit" class="btn btn-link">Comentar</button>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-link">Comentar</button>
+                </div>
             </div>
         </form>
     </div>
@@ -65,9 +68,15 @@
 <script>
     function validateForm() {
         let x = document.forms["comentarioForm"]["Comentario"].value;
-        if (x.trim() === "") {
-            alert("É necessário preencher o campo de comentário");
-            return false;
+        if (x.trim() === "" || x.trim() === " ") {
+            document.querySelector('button[type="submit"]').disabled = true;
+        } else {
+            document.querySelector('button[type="submit"]').disabled = false;
+        }
+        var pass = document.getElementById('comentarios').value = passcode;
+
+        if (passcode !== '' || passcode !== ' ') {
+            document.querySelector('button[type="submit"]').disabled = false;
         }
     }
 </script>

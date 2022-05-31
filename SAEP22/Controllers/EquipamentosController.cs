@@ -27,7 +27,8 @@ namespace SAEP22.Controllers
         public async Task<IActionResult> Index()
         {
             ViewBag.Perfil = HttpContext.Session.GetString("_Perfil");
-            return View(await _context.Equipamentos.ToListAsync());
+            //return View(await _context.Equipamentos.ToListAsync());
+            return View(await _context.Equipamentos.Where(e => e.Ativo == true).ToListAsync());
         }
 
         // GET: Equipamentos/Details/5
